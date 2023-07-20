@@ -2,7 +2,7 @@ package org.hazelcast_vs_oracledb;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
-
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
 public class hazelcastManager {
@@ -11,6 +11,8 @@ public class hazelcastManager {
     //create list and client for every method
     private HazelcastInstance hz;
     private List list;
+
+    private int randomNum;
 
     public long dataAppender(int number){
 
@@ -28,11 +30,12 @@ public class hazelcastManager {
         //end time of process
         long lastT = System.currentTimeMillis();
 
+
         hz.shutdown();
         return lastT - initialT;
     }
     public long dataGetter(int number){
-
+        this.randomNum = ThreadLocalRandom.current().nextInt(1, 1000 + 1);
         this.number = number;
         //defining new client and list for attempt
         this.hz = HazelcastClient.newHazelcastClient();
@@ -41,7 +44,7 @@ public class hazelcastManager {
         long initialT = System.currentTimeMillis();
 
         for(int i = 0; i < number; i++){
-            list.get(number);
+            list.get(randomNum);
 
         }
         //end time of process

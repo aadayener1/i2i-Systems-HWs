@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Function to calculate factorial
+function factorial {
+    local num=$1
+    if (( num == 0 )); then
+        echo 1
+    else
+        echo $(( num * $(factorial $((num - 1))) ))
+    fi
+}
+
+# Function to perform various calculations
+function calculate {
+    local operator=$1
+    local num1=$2
+    local num2=$3
+
+    case $operator in
+        "+")
+            echo $(( num1 + num2 ))
+            ;;
+        "-")
+            echo $(( num1 - num2 ))
+            ;;
+        "*")
+            echo $(( num1 * num2 ))
+            ;;
+        "/")
+            echo $(( num1 / num2 ))
+            ;;
+        "%")
+            echo $(( num1 % num2 ))
+            ;;
+        "!")
+            echo $(factorial $num1)
+            ;;
+        *)
+            echo "Invalid operator"
+            ;;
+    esac
+}
+
+# Main script starts here
+read -p "Enter the operation (+, -, *, /, %, !): " operator
+
+if [[ "$operator" != "!" ]]; then
+    read -p "Enter the first number: " num1
+    read -p "Enter the second number: " num2
+else
+    read -p "Enter the number for factorial: " num1
+fi
+
+result=$(calculate "$operator" "$num1" "$num2")
+
+echo "Result: $result"
+

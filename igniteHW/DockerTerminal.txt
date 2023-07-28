@@ -1,0 +1,50 @@
+/opt/ignite # ls
+apache-ignite
+/opt/ignite # cd apache-ignite
+/opt/ignite/apache-ignite # ls
+LICENSE              RELEASE_NOTES.txt    docs                 run.sh
+MIGRATION_GUIDE.txt  benchmarks           examples             work
+NOTICE               bin                  libs
+README.txt           config               platforms
+/opt/ignite/apache-ignite # cd bic
+/bin/sh: cd: can't cd to bic: No such file or directory
+/opt/ignite/apache-ignite # cd bin
+/opt/ignite/apache-ignite/bin # ls
+control.bat       ignite.bat        igniterouter.sh   index-reader.sh
+control.sh        ignite.sh         include           sqlline.bat
+ignite-cdc.sh     igniterouter.bat  index-reader.bat  sqlline.sh
+/opt/ignite/apache-ignite/bin # ./sqlline.sh -u jdbc:ignite:thin://127.0.0.1/
+Enter username for jdbc:ignite:thin://127.0.0.1/: adayener@gmail.com
+Enter password for jdbc:ignite:thin://127.0.0.1/: *********
+sqlline version 1.9.0
+0: jdbc:ignite:thin://127.0.0.1/> CREATE TABLE SUBSCRIBER(
+. . . . . . . . . . . . . . . .)> SUBSC_ID INTEGER PRIMARY KEY,
+. . . . . . . . . . . . . . . .)> SUBSC_NAME VARCHAR(100),
+. . . . . . . . . . . . . . . .)> SUBSC_SURNAME VARCHAR(100),
+. . . . . . . . . . . . . . . .)> MSISDN VARCHAR(100),
+. . . . . . . . . . . . . . . .)> TARIFF_ID INTEGER,
+. . . . . . . . . . . . . . . .)> START_DATE TIMESTAMP);
+No rows affected (0.193 seconds)
+0: jdbc:ignite:thin://127.0.0.1/> INSERT INTO SUBSCRIBER(SUBSC_ID,SUBSC_NAME,SUBSC_SURNAME,MSISDN,TARIFF_ID) VALUES (1,'Arda','Adayener','Merhabalar',50)
+. . . . . . . . . . . .semicolon> ;
+1 row affected (0.041 seconds)
+0: jdbc:ignite:thin://127.0.0.1/> SELECT * FROM SUBSCRIBER
+. . . . . . . . . . . .semicolon> ;
++----------+------------+---------------+------------+-----------+------------+
+| SUBSC_ID | SUBSC_NAME | SUBSC_SURNAME |   MSISDN   | TARIFF_ID | START_DATE |
++----------+------------+---------------+------------+-----------+------------+
+| 1        | Arda       | Adayener      | Merhabalar | 50        | null       |
++----------+------------+---------------+------------+-----------+------------+
+1 row selected (0.06 seconds)
+0: jdbc:ignite:thin://127.0.0.1/> UPDATE SUBSCRIBER SET START_DATE = '2023-07-28' WHERE SU
+BSC_ID = 1
+. . . . . . . . . . . .semicolon> ;
+1 row affected (0.029 seconds)
+0: jdbc:ignite:thin://127.0.0.1/> SELECT * FROM SUBSCRIBER. . . . . . . . . . . .semicolon> ;
++----------+------------+---------------+------------+-----------+-----------------------+
+| SUBSC_ID | SUBSC_NAME | SUBSC_SURNAME |   MSISDN   | TARIFF_ID |      START_DATE       |
++----------+------------+---------------+------------+-----------+-----------------------+
+| 1        | Arda       | Adayener      | Merhabalar | 50        | 2023-07-28 00:00:00.0 |
++----------+------------+---------------+------------+-----------+-----------------------+
+1 row selected (0.008 seconds)
+0: jdbc:ignite:thin://127.0.0.1/> 
